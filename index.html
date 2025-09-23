@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troca de cor por horário</title>
+</head>
+<body>
+    <div class="container">
+    <h1 id="Titulo"></h1>
+    <p id="hora"></p>
+    <p id="data"></p>
+    <p id="frase"></p>
+    <p id="diaTipo"></p>
+    <p id="diaSemana"></p>
+    </div>
+</body>
+<script>
+    function mudarCor() {
+        let imgFundo;
+        let mensagem;
+        let diaTipo;
+        const agora = new Date();
+        const hora = agora.getHours();
+        const minutos = agora.getMinutes().toString().padStart(2, "0");
+        const segundos = agora.getSeconds().toString().padStart(2, "0");
+        const dia = agora.getDay();
+        const opcoes = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
+
+
+        if (hora >= 6 && hora < 12) {
+            imgFundo = 'https://static.vecteezy.com/ti/fotos-gratis/t1/5206618-lindo-panorama-cenario-do-nascer-no-ceu-laranja-foto.jpg';
+            mensagem = "Bom dia! ☀️"; 
+            frases = [
+            "Acorde com determinação, vá dormir com satisfação.",
+            "Cada manhã é uma nova oportunidade para ser melhor.",
+            "O sucesso começa com um bom dia."
+            ];
+        } else if (hora>= 12 && hora < 18) {
+            imgFundo = 'https://img.freepik.com/fotos-premium/fim-da-tarde-natureza-paisagem-foto-de-um-rio-ao-por-do-sol_566982-137.jpg';
+            mensagem = "Boa tarde! ⛅"; 
+            frases = [
+                "A tarde é o momento perfeito para recarregar as energias.",
+                "Aproveite cada instante desta tarde maravilhosa.", 
+                "Que sua tarde seja tão brilhante quanto o sol."
+            ];
+        } else if (hora >= 18 && hora < 21) {
+            imgFundo = 'https://media.istockphoto.com/id/532378051/pt/foto/c%C3%A9u-de-noite-com-estrelas-e-nuvens.jpg?s=612x612&w=0&k=20&c=mhcc45q09y1kzKUSby5ZOk-RQ4b10zXKHoCwQh9L-Kc='; 
+            mensagem = "Boa noite! 💤"; 
+            frases = [
+                "A noite é para sonhar e planejar o amanhã.", 
+                "Que sua noite seja tranquila e revigorante.", 
+                "Durma com sonhos e acorde com conquistas."
+            ];
+        } else {
+            imgFundo = 'https://s2-g1.glbimg.com/oetfaz_SuMF_C86ISbO4UZDF4k4=/0x0:4000x2250/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/V/E/ZAOhyiRhOQ08nYSL1Jgw/drone2.jpg';
+            mensagem = "Vai dormir vc é corno não morcego!";
+            frases = [
+                "A madrugada é o momento de reflexão e paz.", 
+                "Que a serenidade da noite te envolva.", 
+                "Aproveite a calma da madrugada para sonhar."
+            ]; 
+        }   
+        if (diaSemana === 0 || diaSemana === 6 ){
+          diaTipo = "Hoje é fim de semana! Aproveite para descansar.";
+        } else {
+            diaTipo = "Hoje é dia útil foco nas atividades!";
+        }
+            
+        document.body.style.backgroundImage = "url('" + imgFundo + "')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.getElementById("Titulo").innerText = mensagem;
+        document.getElementById("data").innerText = "🗓️ " + dataFormatada;
+        document.getElementById("hora").innerText = "⏳" + hora + ":" + minutos + ":" + segundos;
+        document.getElementById("diaTipo").innerHTML = diaTipo;
+
+    }
+    let frases = [];
+    function trocarFrase() {
+        if (frases.length > 0) {
+            const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+            document.getElementById("frase").innerText = fraseAleatoria;
+        }
+    }
+    function relogio() {
+        setInterval(mudarCor, 1000);
+    }
+    trocarFrase();
+    setInterval(trocarFrase, 6000);
+    relogio();
+</script>
+<style>
+    body {
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        color:black;
+        padding-top: 150px;}
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        display: inline-block;
+        padding: 50px 40px;
+        border-radius: 10px;
+        
+    }
+    @media (max-width: 768px) {
+        body {
+            padding-top: 50px;
+            font-size: 35px;
+        }
+        button {
+            font-size: 14px;
+            padding-top: 16px;
+        }
+    }
+</style>
+</html>
